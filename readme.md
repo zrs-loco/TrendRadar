@@ -4,6 +4,8 @@
 
 🚀 最快<strong>30秒</strong>部署的热点助手 —— 告别无效刷屏，只看真正关心的新闻资讯
 
+<a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FTrendRadar | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 [![GitHub Stars](https://img.shields.io/github/stars/sansan0/TrendRadar?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/TrendRadar/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/sansan0/TrendRadar?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/TrendRadar/network/members)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
@@ -20,12 +22,14 @@
 </div>
 
 
-> 本项目以轻量，易部署为目标，主要处理 issues
->
-> 遇到问题提 issues，或【硅基茶水间】公众号留言
+> 本项目以轻量，易部署为目标
+
+- **详细问题** → 选择 [GitHub Issues](https://github.com/sansan0/TrendRadar/issues)，准备好截图和日志等。 
+- **快速咨询** → 选择【硅基茶水间】公众号文章留言或私信，尽量说清核心问题。
+- 遇到问题可选择以上 2 种方式获得帮助，[点此跳转到两者的区别](#问题答疑与1元点赞)
 
 <details>
-<summary>👉 点击查看<strong>致谢名单</strong> (当前 <strong>🔥19🔥</strong> 位)</summary>
+<summary>👉 点击查看<strong>致谢名单</strong> (当前 <strong>🔥22🔥</strong> 位)</summary>
 
 ### 数据支持
 
@@ -45,6 +49,9 @@
 
 |           点赞人            |  金额  |  日期  |             备注             |
 | :-------------------------: | :----: | :----: | :-----------------------: |
+|           E*f           |  1  | 2025.9.20  |           |
+|           *记            |  1  | 2025.9.20  |           |
+|           z*u            |  2  | 2025.9.19  |           |
 |           **昊            |  5  | 2025.9.17  |           |
 |           *号            |  1  | 2025.9.15  |           |
 |           T*T            |  2  | 2025.9.15  |  点赞         |
@@ -70,19 +77,40 @@
 
 ### **全网热点聚合**
 
-- 今日头条
-- 百度热搜
-- 华尔街见闻
-- 澎湃新闻
-- bilibili 热搜
-- 财联社热门
-- 凤凰网
-- 贴吧
-- 微博
-- 抖音
 - 知乎
+- 抖音
+- bilibili 热搜
+- 华尔街见闻
+- 贴吧
+- 百度热搜
+- 财联社热门
+- 澎湃新闻
+- 凤凰网
+- 今日头条
+- 微博
 
-默认监控 11 个主流平台，如想额外增加，可看最下方的**自定义监控平台**
+默认监控 11 个主流平台，如想额外增加其它平台，可自行增加
+
+<details>
+<summary><strong>👉 自定义监控平台</strong></summary>
+
+### 🔧 自定义监控平台
+
+本项目的资讯数据来源于 [newsnow](https://github.com/ourongxing/newsnow) ，你可以点击[网站](https://newsnow.busiyi.world/)，点击[更多]，查看是否有你想要的平台。 
+
+具体添加可访问 [项目源代码](https://github.com/ourongxing/newsnow/tree/main/server/sources)，根据里面的文件名，在 `config/config.yaml` 文件中修改 `platforms` 配置：
+
+```yaml
+platforms:
+  - id: "toutiao"
+    name: "今日头条"
+  - id: "baidu"  
+    name: "百度热搜"
+  - id: "wallstreetcn-hot"
+    name: "华尔街见闻"
+  # 添加更多平台...
+```
+</details>
 
 ### **智能推送策略**
 
@@ -119,11 +147,46 @@
 
 **实际效果**：把分散在各个平台的热搜合并起来，按照你关心的热度重新排序
 
-> 这三个比例可以选择适合自己的场景进行调整，具体见【热点权重调整】
+> 这三个比例可以选择适合自己的场景进行调整
+
+<details>
+<summary><strong>👉 热点权重调整</strong></summary>
+<br>
+
+当前默认的配置是平衡性配置
+
+### 两个核心场景
+
+**追实时热点型**：
+```yaml
+weight:
+  rank_weight: 0.8    # 主要看排名
+  frequency_weight: 0.1  # 不太在乎持续性
+  hotness_weight: 0.1
+```
+**适用人群**：自媒体博主、营销人员、想快速了解当下最火话题的用户
+
+**追深度话题型**：
+```yaml
+weight:
+  rank_weight: 0.4    # 适度看排名
+  frequency_weight: 0.5  # 重视当天内的持续热度
+  hotness_weight: 0.1
+```
+**适用人群**：投资者、研究人员、新闻工作者、需要深度分析趋势的用户
+
+### 调整的方法
+1. **三个数字加起来必须等于 1.0**
+2. **哪个重要就调大哪个**：在乎排名就调大 rank_weight，在乎持续性就调大 frequency_weight
+3. **建议每次只调 0.1-0.2**，观察效果
+
+核心思路：追求速度和时效性的用户提高排名权重，追求深度和稳定性的用户提高频次权重。
+
+</details>
 
 ### **多渠道实时推送**
 
-支持**企业微信**、**飞书**、**钉钉**、**Telegram**，消息直达手机
+支持**企业微信**(微信方案)、**飞书**、**钉钉**、**Telegram**，消息直达手机
 
 ### **多端适配**
 - **GitHub Pages**：自动生成精美网页报告，PC/移动端适配
@@ -149,7 +212,7 @@ GitHub 一键 Fork 即可使用，无需编程基础。
 **典型场景：** 股市投资监控、品牌舆情追踪、行业动态关注、生活资讯获取
 
 
-| Github Pages 网页效果(手机端也适配) | 飞书推送效果 |
+| Github Pages 网页效果(手机端适配) | 飞书推送效果 |
 |:---:|:---:|
 | ![Github Pages效果](_image/github-pages.png) | ![飞书推送效果](_image/feishu.jpg) |
 
@@ -214,22 +277,18 @@ GitHub 一键 Fork 即可使用，无需编程基础。
 
 ## 📝 更新日志
 
->**升级说明：** 
-- **提示1**：请通过以下方式更新项目(或根据**更新提示**升级)，不要通过 **Sync fork** 更新
-- **提示2**：比如你当前是v2.0.1，想升级，建议查看【历史更新】，明确升级的方式和更新的功能
-- **小版本更新**：一般情况，直接在 GitHub 网页编辑器中，用本项目的 `main.py` 代码替换你 fork 仓库中的对应文件 
-- **大版本升级**：从 v1.x 升级到 v2.0 建议删除现有 fork 后重新 fork，这样更省力且避免配置冲突
+>**升级说明**：
+- **提示**：不要通过 **Sync fork** 更新本项目, 建议查看【历史更新】，明确具体的【升级方式】和【功能内容】
+- **小版本更新**：从 v2.x 升级到 v2.y, 用本项目的 `main.py` 代码替换你 fork 仓库中的对应文件 
+- **大版本升级**：从 v1.x 升级到 v2.y, 建议删除现有 fork 后重新 fork，这样更省力且避免配置冲突
 
 
-> 感谢各位朋友的支持与厚爱，特别感谢：
+> **感谢**：
+- **fork 并为项目点 star** 的观众们，你们的认可是我前进的动力
+- **关注公众号并积极互动** 的读者们，你们的留言和点赞让内容更有温度
+- **给予资金点赞支持** 的朋友们，你们的慷慨让项目得以持续发展
 > 
-> **fork 并为项目点 star** 的观众们，你们的认可是我前进的动力
-> 
-> **关注公众号并积极互动** 的读者们，你们的留言和点赞让内容更有温度
-> 
-> **给予资金点赞支持** 的朋友们，你们的慷慨让项目得以持续发展
-> 
-> 下一次**新功能**，大概会是 ai 分析功能(大概(●'◡'●)
+> 下一次**新功能**，大概会是 ai 分析功能(●'◡'●)
 
 ### 2025/09/17 - v2.2.0
 
@@ -688,28 +747,6 @@ frequency_words.txt 文件增加了一个【必须词】功能，使用 + 号
     </details>
 
 
-     
-
-<details>
-<summary><strong>👉 自定义监控平台</strong></summary>
-
-### 🔧 自定义监控平台
-
-本项目的资讯数据来源于 [newsnow](https://github.com/ourongxing/newsnow) ，你可以点击[网站](https://newsnow.busiyi.world/)，点击[更多]，查看是否有你想要的平台。 
-
-具体添加可访问 [项目源代码](https://github.com/ourongxing/newsnow/tree/main/server/sources)，根据里面的文件名，在 `config/config.yaml` 文件中修改 `platforms` 配置：
-
-```yaml
-platforms:
-  - id: "toutiao"
-    name: "今日头条"
-  - id: "baidu"  
-    name: "百度热搜"
-  - id: "wallstreetcn-hot"
-    name: "华尔街见闻"
-  # 添加更多平台...
-```
-</details>
 
 <details>
 <summary><strong>👉 Docker 部署</strong></summary>
@@ -904,45 +941,10 @@ docker exec -it trend-radar ls -la /app/config/
 
 </details>
 
-<details>
-<summary><strong>👉 热点权重调整</strong></summary>
-<br>
 
-当前默认的配置是平衡性配置
+## ☕问题答疑与1元点赞
 
-### 两个核心场景
-
-**追实时热点型**：
-```yaml
-weight:
-  rank_weight: 0.8    # 主要看排名
-  frequency_weight: 0.1  # 不太在乎持续性
-  hotness_weight: 0.1
-```
-**适用人群**：自媒体博主、营销人员、想快速了解当下最火话题的用户
-
-**追深度话题型**：
-```yaml
-weight:
-  rank_weight: 0.4    # 适度看排名
-  frequency_weight: 0.5  # 重视当天内的持续热度
-  hotness_weight: 0.1
-```
-**适用人群**：投资者、研究人员、新闻工作者、需要深度分析趋势的用户
-
-### 调整的方法
-1. **三个数字加起来必须等于 1.0**
-2. **哪个重要就调大哪个**：在乎排名就调大 rank_weight，在乎持续性就调大 frequency_weight
-3. **建议每次只调 0.1-0.2**，观察效果
-
-核心思路：追求速度和时效性的用户提高排名权重，追求深度和稳定性的用户提高频次权重。
-
-</details>
-
-
-## ☕ 学习交流与1元点赞
-
-> 心意到就行，收到的点赞用于提高开发者开源的积极性
+> 心意到就行，收到的**点赞**用于提高开发者开源的积极性。你们的**点赞**已记录于最顶部的【致谢名单】
 
 <div align="center">
 
@@ -952,14 +954,23 @@ weight:
 
 </div>
 
-### 项目相关推荐
 
-> 附项目相关的两篇文章，欢迎留言交流
+| 答疑方式 | 适用场景 | 响应时间 | 详细程度 | 如何提问 |
+|---------|---------|---------|---------|---------|
+| **GitHub Issues** | 部署配置问题<br/>功能异常 | 1-2天内 | 针对性强 | 📋 **提供完整信息**：<br/>• 尽量截图<br/>• 错误日志<br/>• 系统环境等等 |
+| **公众号留言** | 快速咨询<br/>使用疑问<br/>功能了解 | 几小时 | 简要指导 | 💡 **抓住问题核心**：<br/>• 一句话描述问题<br/>• 说明想要的效果 |
 
+
+
+### 项目相关
+
+> **3 篇文章**：
+
+- [可在该文章下方留言，方便项目作者用手机答疑](https://mp.weixin.qq.com/s/KYEPfTPVzZNWFclZh4am_g)
 - [2个月破 1000 star，我的GitHub项目推广实战经验](https://mp.weixin.qq.com/s/jzn0vLiQFX408opcfpPPxQ)
 - [基于本项目，如何开展公众号或者新闻资讯类文章写作](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
 
->**AI 开发：**
+>**AI 开发**：
 - 如果你有小众需求，完全可以基于我的项目自行开发，零编程基础的也可以试试
 - 我所有的开源项目或多或少都使用了自己写的**AI辅助软件**来提升开发效率，这款工具已开源
 - **核心功能**：迅速筛选项目代码喂给AI，你只需要补充个人需求即可
